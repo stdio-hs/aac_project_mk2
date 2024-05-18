@@ -1,13 +1,21 @@
-import socket
-import threading
+from socket import socket
+# import threading
+from _thread import *
+
 
 class ASGI:
-    socket = socket.socket()
-    def start():
+    def __init__(self):
+        self.__socket = socket()
+        self.__send_thread = start_new_thread()
+
+    def start(self):
         return
-    def clientHandleThread():
+    
+    def clientHandleThread(self):
         return
-    def sendThread():
+    def sendThread(self):
+        
         return 
-    def recvThread():
+    def recvThread(self):
+        
         return 
