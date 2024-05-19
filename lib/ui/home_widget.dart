@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
-import 'loading_widget.dart'; // LoadingWidget 페이지로 이동하기 위해 추가
+import 'loading_widget.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -165,5 +164,11 @@ class _HomeWidgetState extends State<HomeWidget> with SingleTickerProviderStateM
         ),
       ),
     );
+  }
+}
+
+class HomeScaffoldTheme {
+  Color getMainWhite() {
+    return Colors.white; // 기본 배경색 반환
   }
 }

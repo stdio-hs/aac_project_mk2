@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'loading_widget.dart';
-import 'detailselect_widget.dart';
+import 'package:provider/provider.dart';
+import '../data_loader.dart';
+import 'tree_view.dart';
 import 'common_widgets.dart';
+import 'loading_widget.dart';
 
 class PlaceSelectWidget extends StatelessWidget {
   final List<Map<String, String>> places = [
-    {'name': '카페', 'image': 'assets/cafe.png'},
-    {'name': '식당', 'image': 'assets/restaurant.png'},
-    {'name': '마트', 'image': 'assets/mart.png'},
-    {'name': '편의점', 'image': 'assets/convenience_store.png'},
-    {'name': '문구점', 'image': 'assets/stationery_store.png'},
-    {'name': '서점', 'image': 'assets/bookstore.png'},
-    {'name': '도서관', 'image': 'assets/library.png'},
-    {'name': '미용실', 'image': 'assets/hairdresser.png'},
-    {'name': '영화관', 'image': 'assets/cinema.png'},
-    {'name': '병원', 'image': 'assets/hospital.png'},
+    {'name': '카페', 'image': 'assets/cafe.png', 'id': '106'},
+    {'name': '식당', 'image': 'assets/restaurant.png', 'id': '109'},
+    {'name': '마트', 'image': 'assets/mart.png', 'id': '104'},
+    {'name': '편의점', 'image': 'assets/convenience_store.png', 'id': '101'},
+    {'name': '문구점', 'image': 'assets/stationery_store.png', 'id': '102'},
+    {'name': '서점', 'image': 'assets/bookstore.png', 'id': '107'},
+    {'name': '도서관', 'image': 'assets/library.png', 'id': '105'},
+    {'name': '미용실', 'image': 'assets/hairdresser.png', 'id': '108'},
+    {'name': '영화관', 'image': 'assets/cinema.png', 'id': '103'},
   ];
 
   @override
@@ -64,16 +65,24 @@ class PlaceSelectWidget extends StatelessWidget {
       itemCount: places.length,
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailSelectWidget(
-                  categoryName: places[index]['name']!,
-                  categoryImage: places[index]['image']!,
+          onTap: () async {
+            var dataLoader = Provider.of<DataLoader>(context, listen: false);
+            var nodeId = int.parse(places[index]['id']!);
+            var node = dataLoader.getNodesById([nodeId]).first;
+            if (node['node'].isNotEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TreeView(
+                    initialNodeId: nodeId,
+                    selectedNodes: [places[index]['name']!],
+                    initialNodes: node['node'].cast<int>(),
+                  ),
                 ),
-              ),
-            );
+              );
+            } else {
+              print('No nodes found for the selected place.');
+            }
           },
           child: _buildPlaceCard(places[index]),
         );

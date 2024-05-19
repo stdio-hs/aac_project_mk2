@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// CustomButton 위젯 정의
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;

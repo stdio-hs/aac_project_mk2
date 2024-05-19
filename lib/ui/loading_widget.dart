@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async'; // 타이머를 사용하기 위해 추가
 import 'package:lottie/lottie.dart'; // Lottie 애니메이션 패키지 추가
-import 'theme.dart';
 import 'placeselect_widget.dart';
 
-// LoadingWidget StatefulWidget 정의
 class LoadingWidget extends StatefulWidget {
   const LoadingWidget({super.key});
 
@@ -12,9 +10,7 @@ class LoadingWidget extends StatefulWidget {
   State<LoadingWidget> createState() => _LoadingWidgetState();
 }
 
-// LoadingWidget의 상태를 관리하는 _LoadingWidgetState 클래스
 class _LoadingWidgetState extends State<LoadingWidget> {
-  var _style = HomeScaffoldTheme(); // 테마 클래스 인스턴스 생성
   final maxWidth = 400.0; // 화면의 최대 너비 설정
   final maxHeight = 900.0; // 화면의 최대 높이 설정
 
