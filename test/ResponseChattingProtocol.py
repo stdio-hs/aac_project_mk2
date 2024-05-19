@@ -23,11 +23,7 @@ class ResponseChattingProtocol:
         #내용
         data['text'] = data_list[3]
         
-        if(data['alis']=='analysis'):
-            result = self.classifier.classifier(data['text'])
-            return result
-        else:
-            return data
+        return data
         # 프로토콜
 
         #self.__dict_message = dict(str_msg)

@@ -31,4 +31,5 @@ class ClientTCPSocket:
         self.__socket.send(b'self.__string_message')
 
         
+
         
