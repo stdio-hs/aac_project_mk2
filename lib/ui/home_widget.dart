@@ -1,3 +1,5 @@
+// APP 실행시 처음 뜨는 화면
+
 import 'package:flutter/material.dart';
 import 'loading_widget.dart';
 

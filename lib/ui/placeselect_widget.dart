@@ -1,3 +1,5 @@
+// 장소카테고리 선택 (트리구조 시작)
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data_loader.dart';

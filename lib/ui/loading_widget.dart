@@ -1,3 +1,5 @@
+// 위치탐색 페이지 (하는척)
+
 import 'package:flutter/material.dart';
 import 'dart:async'; // 타이머를 사용하기 위해 추가
 import 'package:lottie/lottie.dart'; // Lottie 애니메이션 패키지 추가

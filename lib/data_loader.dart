@@ -1,3 +1,5 @@
+// JSON 파일 불러오는 파트
+
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
