@@ -1,5 +1,3 @@
-// 가장 많이 사용하는 버튼 모음
-
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
