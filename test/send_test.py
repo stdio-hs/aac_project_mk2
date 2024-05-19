@@ -25,7 +25,7 @@ def main2():
 def send(client_socket:socket, flag):
     while flag[0]:
         time.sleep(1)
-        data = "hi hello afdfaf faaffa"
+        data = "hi hello analysis 가격문의"
         client_socket.send(data.encode())
 
         

@@ -1,5 +1,6 @@
-from ResponseRecomendApplication import *
-from ClientTCPSocket import *
+from .ResponseRecomendApplication import *
+from .ResponseChattingProtocol import *
+from .ClientTCPSocket import *
 
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread

@@ -1,4 +1,4 @@
-from ResponseChattingProtocol import *
+from .ResponseChattingProtocol import *
 
 import threading
 from socket import socket
