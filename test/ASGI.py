@@ -49,22 +49,22 @@ class ASGI:
         recv_thread.start()
 
 
-    def __sendThread(self, client_tcp_socket:ClientTCPSocket, rra):
+    def __sendThread(self, client_tcp_socket:ClientTCPSocket, rra:ResponseRecomendApp):
         data = "Hello my server"
         while True:
             time.sleep(1)
-            client_tcp_socket.sendData(data)
-            """
-                        if not rra.__isEmptySendQueue():
-                data = rra.__sendQueueDeque()
+            # client_tcp_socket.sendData(data)
+            
+            if not rra.isEmptySendQueue():
+                data = rra.sendQueueDeque()
                 client_tcp_socket.sendData(data)
-            """
+            
 
-    def __recvThread(self, client_tcp_socket:ClientTCPSocket, rra):
+    def __recvThread(self, client_tcp_socket:ClientTCPSocket, rra:ResponseRecomendApp):
         while True:
             data = client_tcp_socket.recvData()
             print(data)
-            #rra.__recvQueueEnque(data)
+            rra.recvQueueEnque(data)
 
 if __name__ == "__main__":
     asgi = ASGI()
