@@ -77,6 +77,8 @@ class PlaceSelectWidget extends StatelessWidget {
                     initialNodeId: nodeId,
                     selectedNodes: [places[index]['name']!],
                     initialNodes: node['node'].cast<int>(),
+                    placeName: places[index]['name']!,
+                    placeImage: places[index]['image']!,
                   ),
                 ),
               );
