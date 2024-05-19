@@ -4,6 +4,8 @@ from ClientTCPSocket import *
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread
 from _thread import *
+import time
+
 
 HOST = '127.0.0.1'
 PORT = 5000
@@ -17,10 +19,11 @@ class ASGI:
         return 
     
     # 서버 소켓을 실행하는 부분(바인드)
-    def __set_server_socket():
+    def __set_server_socket(self):
         server_socket = socket(AF_INET, SOCK_STREAM)
         server_socket.bind((HOST, PORT))
         server_socket.listen()
+        print(f"[:     Server Start with {HOST} | {str(PORT)}")
         return server_socket
 
     # 새로운 클라이언트를 받아내는 부분
@@ -36,9 +39,6 @@ class ASGI:
             thread.start()
     
     def __clientHandleThread(self, client_tcp_socket, rra):
-        '''
-        thread들을 실행해야하나?
-        '''
         # send와 recv하는 스레드로 분기
         send_thread = Thread(target=self.__sendThread,
                              args= (client_tcp_socket,rra))
@@ -49,13 +49,22 @@ class ASGI:
 
 
     def __sendThread(self, client_tcp_socket:ClientTCPSocket, rra):
+        data = "Hello my server"
         while True:
-            if not rra.__isEmptySendQueue():
+            time.sleep(1)
+            client_tcp_socket.sendData(data)
+            """
+                        if not rra.__isEmptySendQueue():
                 data = rra.__sendQueueDeque()
                 client_tcp_socket.sendData(data)
-
+            """
 
     def __recvThread(self, client_tcp_socket:ClientTCPSocket, rra):
         while True:
             data = client_tcp_socket.recvData()
-            rra.__recvQueueEnque(data)
+            print(data)
+            #rra.__recvQueueEnque(data)
+
+if __name__ == "__main__":
+    asgi = ASGI()
+    asgi.start()
