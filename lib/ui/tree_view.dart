@@ -4,6 +4,7 @@ import '../data_loader.dart';
 import 'common_widgets.dart';
 import 'tree_final.dart';
 
+/// TreeView 메인 화면
 class TreeView extends StatelessWidget {
   final int initialNodeId;
   final List<String> selectedNodes;
@@ -82,6 +83,7 @@ class TreeView extends StatelessWidget {
   }
 }
 
+/// 카테고리 라벨 위젯
 class CategoryLabel extends StatelessWidget {
   final String categoryName;
   final String categoryImage;
@@ -113,6 +115,7 @@ class CategoryLabel extends StatelessWidget {
   }
 }
 
+/// 선택된 노드 위젯
 class SelectedNodesWidget extends StatelessWidget {
   final List<String> selectedNodes;
 
@@ -136,6 +139,7 @@ class SelectedNodesWidget extends StatelessWidget {
   }
 }
 
+/// 노드 리스트 위젯
 class NodeList extends StatelessWidget {
   final List<dynamic> nodes;
   final List<String> selectedNodes;
@@ -162,39 +166,42 @@ class NodeList extends StatelessWidget {
       itemBuilder: (context, index) {
         var node = nodes[index];
         return GestureDetector(
-          onTap: () {
-            if (node['node'].isNotEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NodeDetails(
-                    nodeId: node['id'],
-                    nodeName: node['name'],
-                    children: node['node'],
-                    selectedNodes: List.from(selectedNodes)..add(node['name']),
-                    placeName: placeName,
-                    placeImage: placeImage,
-                  ),
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FinalOutputPage(
-                    selectedNodes: List.from(selectedNodes)..add(node['name']),
-                  ),
-                ),
-              );
-            }
-          },
+          onTap: () => _handleNodeTap(context, node),
           child: NodeCard(node: node),
         );
       },
     );
   }
+
+  void _handleNodeTap(BuildContext context, dynamic node) {
+    if (node['node'].isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NodeDetails(
+            nodeId: node['id'],
+            nodeName: node['name'],
+            children: node['node'],
+            selectedNodes: List.from(selectedNodes)..add(node['name']),
+            placeName: placeName,
+            placeImage: placeImage,
+          ),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FinalOutputPage(
+            selectedNodes: List.from(selectedNodes)..add(node['name']),
+          ),
+        ),
+      );
+    }
+  }
 }
 
+/// 노드 카드 위젯
 class NodeCard extends StatelessWidget {
   final dynamic node;
 
@@ -202,6 +209,9 @@ class NodeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 노드 번호에 따라 이미지 URL을 생성합니다.
+    final imageUrl = 'http://15.164.48.193/images/${node['id']}.png';
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -212,7 +222,8 @@ class NodeCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.folder, size: 50, color: Colors.blue), // Placeholder icon
+            // 서버에서 이미지를 가져와 표시합니다.
+            Image.network(imageUrl, height: 50),
             SizedBox(height: 10),
             Text(
               node['name'],
@@ -226,6 +237,11 @@ class NodeCard extends StatelessWidget {
   }
 }
 
+/// =====================================
+/// 트리구조 알고리즘 파트
+/// =====================================
+
+/// 노드 상세 화면
 class NodeDetails extends StatelessWidget {
   final int nodeId;
   final String nodeName;
