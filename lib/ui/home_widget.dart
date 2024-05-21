@@ -10,8 +10,8 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> with SingleTickerProviderStateMixin {
   var _style = HomeScaffoldTheme();
-  final maxWidth = 800.0;
-  final maxHeight = 1200.0;
+  final maxWidth = 5000.0; // 태블릿때문에 많이 늘려놓음
+  final maxHeight = 5000.0; // 태블릿때문에 많이 늘려놓음
 
   late AnimationController _controller;
   late Animation<double> _animation;

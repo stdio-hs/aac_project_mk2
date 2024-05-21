@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:permission_handler/permission_handler.dart';
 import 'ai_widget.dart'; // ai_widget 파일 import
 import 'aac_output_widget.dart'; // FinalOutputPage 파일 import
-import 'home_widget.dart'; // home_widget 파일 import
+import 'home_widget.dart'; // home_widget 파일 impovhrt
 
 class SttWidget extends StatefulWidget {
   @override
@@ -11,22 +13,59 @@ class SttWidget extends StatefulWidget {
 
 class _SttWidgetState extends State<SttWidget> {
   bool isListening = false;
+  late stt.SpeechToText _speech;
+  String _text = '';
 
-  void startListening() {
-    setState(() {
-      isListening = true;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _speech = stt.SpeechToText();
+    requestPermissions();
+  }
+
+  void requestPermissions() async {
+    var status = await Permission.microphone.status;
+    if (!status.isGranted) {
+      status = await Permission.microphone.request();
+    }
+
+    if (!status.isGranted) {
+      print('Microphone permission denied');
+    } else {
+      print('Microphone permission granted');
+    }
+  }
+
+  void startListening() async {
+    print('Start listening');
+    bool available = await _speech.initialize(
+      onStatus: (status) => print('onStatus: $status'),
+      onError: (errorNotification) => print('onError: $errorNotification'),
+    );
+
+    if (available) {
+      setState(() => isListening = true);
+      _speech.listen(
+        onResult: (result) => setState(() {
+          _text = result.recognizedWords;
+          print('Recognized Words: $_text');
+        }),
+      );
+    } else {
+      setState(() => isListening = false);
+      print('Speech recognition not available: $_speech');
+    }
   }
 
   void stopListening() {
-    setState(() {
-      isListening = false;
-    });
+    print('Stop listening');
+    _speech.stop();
+    setState(() => isListening = false);
 
-    // 다음 페이지로 이동
+    // 다음 페이지로 이동 (인식된 텍스트 전달)
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => AiWidget()),
+      MaterialPageRoute(builder: (context) => AiWidget(text: _text)),
     );
   }
 
