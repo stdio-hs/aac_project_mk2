@@ -69,7 +69,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
       width: 250,
       height: 250, // 크기를 키움
       padding: const EdgeInsets.all(15), // 약간의 여백을 추가하여 테두리를 잘라냄
-      child: Lottie.asset('assets/animation.json'), // Lottie 애니메이션 파일 경로
+      child: Lottie.asset('assets/animation_gps.json'), // Lottie 애니메이션 파일 경로
     );
   }
 

@@ -1,15 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'ai_widget.dart'; // ai_widget 파일 import
 
-class SttWidget extends StatelessWidget {
+class SttWidget extends StatefulWidget {
+  @override
+  _SttWidgetState createState() => _SttWidgetState();
+}
+
+class _SttWidgetState extends State<SttWidget> {
+  bool isListening = false;
+
+  void startListening() {
+    setState(() {
+      isListening = true;
+    });
+  }
+
+  void stopListening() {
+    setState(() {
+      isListening = false;
+    });
+
+    // 다음 페이지로 이동
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => AiWidget()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // 여기에 SttWidget에 대한 구현을 작성하세요
     return Scaffold(
-      appBar: AppBar(
-        title: Text('STT'),
-      ),
+      backgroundColor: Color(0xFF151519),
       body: Center(
-        child: Text('STT Widget'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: isListening ? stopListening : startListening,
+              child: CircleAvatar(
+                radius: 120, // 동그라미 사이즈를 크게 설정
+                backgroundColor: Colors.blue,
+                child: isListening
+                    ? Lottie.asset(
+                  'assets/animation_stt.json',
+                  repeat: true,
+                  width: 240, // stt_animation의 크기를 더 크게 설정
+                  height: 240, // stt_animation의 크기를 더 크게 설정
+                )
+                    : Container(),
+              ),
+            ),
+            SizedBox(height: 20),
+            isListening
+                ? ElevatedButton(
+              onPressed: stopListening,
+              child: Text('STOP'),
+            )
+                : Text(
+              '눌러서 질문해주세요',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }

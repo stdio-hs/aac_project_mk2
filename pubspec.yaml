@@ -24,7 +24,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/aac_data.json
-    - assets/animation.json
+
+    - assets/animation_gps.json
+    - assets/animation_load.json
+    - assets/animation_stt.json
+
     - assets/3d_image.png
     - assets/bookstore.png
     - assets/cafe.png
