@@ -17,7 +17,7 @@ class ClientTCPSocket:
         2. recvThread로부터 메시지를 받는다.
         '''
         self.__string_message = self.__socket.recv(1024)
-        self.__dict_message = self.__rcp.stringToDict(self.__string_message.decode()) 
+        self.__dict_message = self.__rcp.stringToDict(self.__string_message.decode('utf-8')) 
         return self.__dict_message
   
 
@@ -27,8 +27,8 @@ class ClientTCPSocket:
         2. sendThread로 메시지를 보낸다.
         '''
 
-        self.__string_message = self.__rcp.dictToString(msg.encode('utf-8'))
-        self.__socket.send(b'self.__string_message')
+        self.__string_message = self.__rcp.dictToString(msg)
+        self.__socket.send(self.__string_message.encode('utf-8'))
 
         
 

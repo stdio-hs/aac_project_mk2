@@ -50,15 +50,18 @@ class ASGI:
 
 
     def __sendThread(self, client_tcp_socket:ClientTCPSocket, rra:ResponseRecomendApp):
-        data = "Hello my server"
+        # data = "Hello my server"
         while True:
             time.sleep(1)
             # client_tcp_socket.sendData(data)
             
             if not rra.isEmptySendQueue():
-                data = rra.sendQueueDeque()
-                client_tcp_socket.sendData(data)
-            
+                data, res = rra.sendQueueDeque()
+                print("뭐하는 중이니 :    ", (data,res))
+                client_tcp_socket.sendData(res)
+
+                
+                            
 
     def __recvThread(self, client_tcp_socket:ClientTCPSocket, rra:ResponseRecomendApp):
         while True:

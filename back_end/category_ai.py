@@ -119,10 +119,10 @@ class Classifier():
             if value == max_index:
                 result = key
         #result = result.replace(" ", "")
-        print('1:   ',result)
+        print('22:   ',result)
         return_data = self.__check_category(result)
         self.text.clear()
-        return return_data
+        return return_data, result
 
 
 
