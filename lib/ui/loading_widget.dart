@@ -18,7 +18,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   void initState() {
     super.initState();
     // 5초 후 다음 페이지로 이동
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => PlaceSelectWidget()),

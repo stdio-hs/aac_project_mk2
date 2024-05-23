@@ -11,7 +11,7 @@ FILE_NAME = 'new_korean_intence.json'
 
 LABEL_FILE = './label_data.txt'
 # MODEL_FILE = './model/'
-MODEL_FILE = 'C:/Users/yangs/OneDrive/바탕 화면/aac_project_mk2/back_end/model/'
+MODEL_FILE = 'C:/Users/yangs/aac_project_mk2/back_end/model/'
 AAC_FILE = './json_data_230924.json'
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
