@@ -8,7 +8,8 @@ from _thread import *
 import time
 
 
-HOST = '127.0.0.1'
+# HOST = '127.0.0.1'
+HOST = '192.168.200.142'
 PORT = 5000
 
 class ASGI:
