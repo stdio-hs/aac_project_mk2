@@ -11,7 +11,7 @@ class TreeView extends StatelessWidget {
   final List<int> initialNodes;
   final String placeName;
   final String placeImage;
-
+  
   TreeView({
     required this.initialNodeId,
     required this.selectedNodes,

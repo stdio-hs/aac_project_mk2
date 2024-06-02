@@ -18,6 +18,7 @@ class PlaceSelectWidget extends StatelessWidget {
     {'name': '영화관', 'image': 'assets/cinema.png', 'id': '103'},
   ];
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
