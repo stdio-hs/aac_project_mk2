@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'placeselect_widget.dart'; // 장소선택카테고리 페이지 import
 import 'stt_widget.dart'; // STT 페이지 import
+import 'package:aac_project_mk2/bloc/stt_controller.dart';
+import 'package:get/get.dart';
 
 class FinalOutputPage extends StatelessWidget {
   final List<String> selectedNodes;
@@ -11,6 +13,7 @@ class FinalOutputPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final childNodes = selectedNodes.skip(2).join(' ');
+
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -77,6 +80,7 @@ class RotatedText extends StatelessWidget {
 class ButtonRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final SttController controller = Get.put(SttController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -98,6 +102,7 @@ class ButtonRow extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+            controller.resetData();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => SttWidget()),

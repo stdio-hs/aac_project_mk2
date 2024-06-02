@@ -7,13 +7,13 @@ import 'loading_widget.dart';
 
 class PlaceSelectWidget extends StatelessWidget {
   final List<Map<String, String>> places = [
-    {'name': '카페', 'image': 'assets/cafe.png', 'id': '106'},
-    {'name': '식당', 'image': 'assets/restaurant.png', 'id': '109'},
+    {'name': '카페', 'image': 'assets/cafe.png', 'id': '107'},
+    {'name': '식당', 'image': 'assets/restaurant.png', 'id': '102'},
     {'name': '마트', 'image': 'assets/mart.png', 'id': '104'},
-    {'name': '편의점', 'image': 'assets/convenience_store.png', 'id': '101'},
-    {'name': '문구점', 'image': 'assets/stationery_store.png', 'id': '102'},
-    {'name': '서점', 'image': 'assets/bookstore.png', 'id': '107'},
-    {'name': '도서관', 'image': 'assets/library.png', 'id': '105'},
+    {'name': '편의점', 'image': 'assets/convenience_store.png', 'id': '105'},
+    {'name': '문구점', 'image': 'assets/stationery_store.png', 'id': '101'},
+    {'name': '서점', 'image': 'assets/bookstore.png', 'id': '109'},
+    {'name': '도서관', 'image': 'assets/library.png', 'id': '106'},
     {'name': '미용실', 'image': 'assets/hairdresser.png', 'id': '108'},
     {'name': '영화관', 'image': 'assets/cinema.png', 'id': '103'},
   ];
