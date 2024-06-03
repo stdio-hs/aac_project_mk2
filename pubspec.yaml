@@ -26,6 +26,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - json_data_23092400.json
     - assets/aac_data.json
 
     - assets/animation_gps.json
