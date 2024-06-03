@@ -9,6 +9,7 @@ import time
 
 
 # HOST = '127.0.0.1'
+<<<<<<< Updated upstream
 HOST = '192.168.137.1'
 PORT = 5000
 

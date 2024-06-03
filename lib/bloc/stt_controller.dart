@@ -36,7 +36,11 @@ class SttController extends GetxController {
 
   void _connectToServer() async {
     try {
+<<<<<<< Updated upstream
       _socket = await Socket.connect('192.168.137.1', 5000); // Android 에뮬레이터에서는 127.0.0.1 대신 10.0.2.2 사용
+=======
+      _socket = await Socket.connect('165.229.139.166', 5000); // Android 에뮬레이터에서는 127.0.0.1 대신 10.0.2.2 사용
+>>>>>>> Stashed changes
       _socket!.listen((data) {
         final serverResponse = utf8.decode(data);
         analy.value = true;

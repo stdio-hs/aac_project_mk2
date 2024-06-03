@@ -21,28 +21,35 @@ INDEX = 0
 class Classifier():
     def __init__(self):
         self.text = []
+        self.reply = []
+        self.dict = {}
         self.tokenizer = Tokenizer(char_level = True, oov_token='<OOV')
         self.__set_intent()
         self.__get_aac_category()
         self.__get_labels()
+        
 
 
     def __set_intent(self):
         with open(FILE_PATH + FILE_NAME, 'r', encoding='UTF-8') as f:
             json_data = json.load(f)
+            
         raw_intence = json_data['intence']
+        self.dict = json_data['intence']
         # json to dataframe
         intence = pd.DataFrame(raw_intence)
         # 리스트 분해
         intence = intence.explode('patterns')
         # 특수문자 제거
         intence['patterns'] = intence['patterns'].str.replace('[^ㄱ-ㅎㅏ-ㅣ가-힣0-9 ]', '')
+        
         # 중복제거
         intence.drop_duplicates( subset=['patterns'], inplace = True)
 
         text_list = intence['patterns'].tolist()
+        self.reply = intence['response'].tolist()
+        
         self.tokenizer.fit_on_texts(text_list)
-
         # text to number
 
 
@@ -120,10 +127,24 @@ class Classifier():
                 result = key
         #result = result.replace(" ", "")
         print('22:   ',result)
+    
         return_data = self.__check_category(result)
+        print("dassdasda : ", return_data)
+
+        ans = []
+
+        for a in self.aac_category:
+            if a['id']==return_data['key']:
+                ans = a['node'][0:5]
+                print(ans) # [8141, 8142]
+        
+        for num in ans:
+            for n in self.aac_category:
+                if num == n['id']:
+                    print(n['name'])
+
         self.text.clear()
         return return_data, result
-
 
 
         
