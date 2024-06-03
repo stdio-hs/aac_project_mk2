@@ -132,6 +132,7 @@ class Classifier():
         print("dassdasda : ", return_data)
 
         ans = []
+        response = []
 
         for a in self.aac_category:
             if a['id']==return_data['key']:
@@ -141,10 +142,12 @@ class Classifier():
         for num in ans:
             for n in self.aac_category:
                 if num == n['id']:
+                    response.append(n['name'])
                     print(n['name'])
+                    print(response)
 
         self.text.clear()
-        return return_data, result
+        return return_data, result, response
 
 
         

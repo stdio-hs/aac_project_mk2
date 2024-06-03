@@ -58,9 +58,9 @@ class ASGI:
             # client_tcp_socket.sendData(data)
             
             if not rra.isEmptySendQueue():
-                data, res = rra.sendQueueDeque()
-                print("뭐하는 중이니 :    ", (data,res))
-                client_tcp_socket.sendData(res)
+                data, res, ans_list = rra.sendQueueDeque()
+                print("뭐하는 중이니 :    ", (data,res,ans_list))
+                client_tcp_socket.sendData(res, ans_list)
 
                 
                             

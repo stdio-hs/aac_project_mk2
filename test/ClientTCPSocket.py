@@ -21,13 +21,13 @@ class ClientTCPSocket:
         return self.__dict_message
   
 
-    def sendData(self, msg):
+    def sendData(self, msg, ans_list):
         '''
         1. dict를 string으로 변환하기
         2. sendThread로 메시지를 보낸다.
         '''
 
-        self.__string_message = self.__rcp.dictToString(msg)
+        self.__string_message = self.__rcp.dictToString(msg, ans_list)
         self.__socket.send(self.__string_message.encode('utf-8'))
 
         

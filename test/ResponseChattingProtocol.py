@@ -29,7 +29,7 @@ class ResponseChattingProtocol:
         #self.__dict_message = dict(str_msg)
         # return data
         
-    def dictToString(self, dict_msg):
+    def dictToString(self, dict_msg, ans_list):
         '''
         1. dict메세지를 string형으로 바꾼다.
         2. string메세지를 반환한다.
@@ -39,5 +39,5 @@ class ResponseChattingProtocol:
         # data = dict_msg['head'] + dict_msg['body']
         # print(dict_msg)
         
-        self.__str_message = str(dict_msg)
+        self.__str_message = str(dict_msg) +"/"+ str(ans_list)
         return self.__str_message

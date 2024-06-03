@@ -19,9 +19,9 @@ class ResponseRecomendApp:
 
             if(result):
                 if(result['alis']=='analysis'):
-                    result_anas, res = self.classifier.classifier(result['text'])
-                    self.sendQueueEnque(result_anas, res)
-                    print("이거 send 큐에 추가해   ", result_anas, res)
+                    result_anas, res, ans_list = self.classifier.classifier(result['text'])
+                    self.sendQueueEnque(result_anas, res, ans_list)
+                    print("이거 send 큐에 추가해   ", result_anas, res, ans_list)
         #res가 태그, result_anas가 {"key":9021}같은 딕셔너리
         # category = Classifier(result)
 
@@ -45,11 +45,11 @@ class ResponseRecomendApp:
         return self.__recv_queue.empty()
     
     
-    def sendQueueEnque(self,dict_msg, res):
+    def sendQueueEnque(self,dict_msg, res, ans_list):
         # '''
         # 1. sendQueue에 메세지를 집어넣음.
         # '''
-        self.__send_queue.put((dict_msg,res))
+        self.__send_queue.put((dict_msg,res, ans_list))
     
     def isEmptySendQueue(self):
         # '''
