@@ -22,7 +22,7 @@ class ResponseRecomendApp:
                     result_anas, res = self.classifier.classifier(result['text'])
                     self.sendQueueEnque(result_anas, res)
                     print("이거 send 큐에 추가해   ", result_anas, res)
-
+        #res가 태그, result_anas가 {"key":9021}같은 딕셔너리
         # category = Classifier(result)
 
     def recvQueueEnque(self, dict_msg):
