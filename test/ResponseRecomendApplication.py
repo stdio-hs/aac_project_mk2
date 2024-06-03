@@ -11,7 +11,7 @@ class ResponseRecomendApp:
         self.classifier = Classifier()
         inter_thread = Thread(target=self.__interfaceThread)
         inter_thread.start()
-    
+
     def __interfaceThread(self):
         # bool_data = self.__isEmptyRecvQueue()
         while True:
@@ -31,7 +31,7 @@ class ResponseRecomendApp:
 
         # '''
         self.__recv_queue.put(dict_msg)
-        
+
     def recvQueueDeque(self):
         if self.__isEmptyRecvQueue():
             time.sleep(3)
@@ -40,17 +40,17 @@ class ResponseRecomendApp:
         else:
             result = self.__recv_queue.get()
             return result
-        
-    def __isEmptyRecvQueue(self):       
+
+    def __isEmptyRecvQueue(self):
         return self.__recv_queue.empty()
-    
-    
+
+
     def sendQueueEnque(self,dict_msg, res, ans_list):
         # '''
         # 1. sendQueue에 메세지를 집어넣음.
         # '''
         self.__send_queue.put((dict_msg,res, ans_list))
-    
+
     def isEmptySendQueue(self):
         # '''
         # 1. sendQueue가 비어있는지 확인한다.
@@ -58,7 +58,7 @@ class ResponseRecomendApp:
         # '''
         return self.__send_queue.empty()
 
-    
+
     def sendQueueDeque(self):
         # '''
         # 1. sendQueue가 비어있지 않다면 진행
