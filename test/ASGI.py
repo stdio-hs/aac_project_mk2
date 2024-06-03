@@ -11,6 +11,10 @@ import time
 # HOST = '127.0.0.1'
 <<<<<<< Updated upstream
 HOST = '192.168.137.1'
+=======
+# HOST = '192.168.200.176'
+HOST = '165.229.139.166'
+>>>>>>> Stashed changes
 PORT = 5000
 
 class ASGI:
