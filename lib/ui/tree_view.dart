@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-<<<<<<< Updated upstream
 import '../data_loader.dart';
 import 'common_widgets.dart';
 import 'aac_output_widget.dart';
-=======
 import 'package:auto_size_text/auto_size_text.dart';
 
 void main() {
@@ -50,7 +48,7 @@ class DataLoader extends ChangeNotifier {
     return ids.map((id) => data[id]).toList();
   }
 }
->>>>>>> Stashed changes
+
 
 /// TreeView 메인 화면
 class TreeView extends StatelessWidget {
