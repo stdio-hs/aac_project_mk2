@@ -10,6 +10,8 @@ class SttController extends GetxController {
   var response = ''.obs;
   var analy = false.obs;
 
+  List<String> words = [];
+
   late stt.SpeechToText _speech;
   Socket? _socket;
 
@@ -36,13 +38,15 @@ class SttController extends GetxController {
 
   void _connectToServer() async {
     try {
-      _socket = await Socket.connect('165.229.180.132', 5000); // Android 에뮬레이터에서는 127.0.0.1 대신 10.0.2.2 사용
-
+      _socket = await Socket.connect('165.229.139.166', 5000); // Android 에뮬레이터에서는 127.0.0.1 대신 10.0.2.2 사용
       _socket!.listen((data) {
         final serverResponse = utf8.decode(data);
         analy.value = true;
-        response.value = serverResponse;
-        print('서버 응답: $serverResponse');
+        words = serverResponse.split("/");
+        // response.value = serverResponse;
+        response.value = words[1];
+        // print('서버 응답: $serverResponse');
+        print('서버 응답: $words[1]');
       }, onError: (error) {
         print("Socket error: $error");
         _socket?.destroy();

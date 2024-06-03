@@ -149,5 +149,4 @@ class Classifier():
         self.text.clear()
         return return_data, result, response
 
-
         
