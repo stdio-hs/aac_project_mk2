@@ -22,6 +22,8 @@ class TreeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -39,15 +41,17 @@ class TreeView extends StatelessWidget {
               CategoryLabel(
                 categoryName: placeName,
                 categoryImage: placeImage,
+                screenWidth: screenWidth,
               ),
               if (selectedNodes.isNotEmpty)
-                SelectedNodesWidget(selectedNodes: selectedNodes),
+                SelectedNodesWidget(selectedNodes: selectedNodes, screenWidth: screenWidth),
               Expanded(
                 child: NodeList(
                   nodes: dataLoader.getNodesById(initialNodes),
                   selectedNodes: selectedNodes,
                   placeName: placeName,
                   placeImage: placeImage,
+                  screenWidth: screenWidth,
                 ),
               ),
               Padding(
@@ -87,8 +91,9 @@ class TreeView extends StatelessWidget {
 class CategoryLabel extends StatelessWidget {
   final String categoryName;
   final String categoryImage;
+  final double screenWidth;
 
-  CategoryLabel({required this.categoryName, required this.categoryImage});
+  CategoryLabel({required this.categoryName, required this.categoryImage, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +103,13 @@ class CategoryLabel extends StatelessWidget {
         children: [
           Image.asset(
             categoryImage,
-            height: 50,
+            height: screenWidth * 0.1, // Adjust image size based on screen width
           ),
           SizedBox(width: 10),
           Text(
             categoryName,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: screenWidth * 0.05, // Adjust font size based on screen width
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
@@ -118,13 +123,15 @@ class CategoryLabel extends StatelessWidget {
 /// 선택된 노드 위젯
 class SelectedNodesWidget extends StatelessWidget {
   final List<String> selectedNodes;
+  final double screenWidth;
 
-  SelectedNodesWidget({required this.selectedNodes});
+  SelectedNodesWidget({required this.selectedNodes, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      alignment: Alignment.center,  // 텍스트를 중앙으로 정렬
       padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -132,8 +139,9 @@ class SelectedNodesWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Text(
+
         selectedNodes.join(' > '),
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: screenWidth * 0.035, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -145,12 +153,14 @@ class NodeList extends StatelessWidget {
   final List<String> selectedNodes;
   final String placeName;
   final String placeImage;
+  final double screenWidth;
 
   NodeList({
     required this.nodes,
     required this.selectedNodes,
     required this.placeName,
     required this.placeImage,
+    required this.screenWidth,
   });
 
   @override
@@ -167,7 +177,7 @@ class NodeList extends StatelessWidget {
         var node = nodes[index];
         return GestureDetector(
           onTap: () => _handleNodeTap(context, node),
-          child: NodeCard(node: node),
+          child: NodeCard(node: node, screenWidth: screenWidth),
         );
       },
     );
@@ -204,35 +214,44 @@ class NodeList extends StatelessWidget {
 /// 노드 카드 위젯
 class NodeCard extends StatelessWidget {
   final dynamic node;
+  final double screenWidth;
 
-  NodeCard({required this.node});
+  NodeCard({required this.node, required this.screenWidth});
 
   @override
   Widget build(BuildContext context) {
     // 노드 번호에 따라 이미지 URL을 생성합니다.
     final imageUrl = 'http://15.164.48.193/images/${node['id']}.png';
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 서버에서 이미지를 가져와 표시합니다.
-            Image.network(imageUrl, height: 50),
-            SizedBox(height: 10),
-            Text(
-              node['name'],
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double itemWidth = constraints.maxWidth;
+        double imageHeight = itemWidth * 0.35;
+        double textSize = itemWidth * 0.1;
+
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // 서버에서 이미지를 가져와 표시합니다.
+                Image.network(imageUrl, height: imageHeight),
+                SizedBox(height: 10),
+                Text(
+                  node['name'],
+                  style: TextStyle(fontSize: textSize, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -264,6 +283,8 @@ class NodeDetails extends StatelessWidget {
     var dataLoader = Provider.of<DataLoader>(context);
     var childNodes = dataLoader.getNodesById(children.cast<int>());
 
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -275,15 +296,17 @@ class NodeDetails extends StatelessWidget {
           CategoryLabel(
             categoryName: placeName,
             categoryImage: placeImage,
+            screenWidth: screenWidth,
           ),
           if (selectedNodes.isNotEmpty)
-            SelectedNodesWidget(selectedNodes: selectedNodes),
+            SelectedNodesWidget(selectedNodes: selectedNodes, screenWidth: screenWidth),
           Expanded(
             child: NodeList(
               nodes: childNodes,
               selectedNodes: selectedNodes,
               placeName: placeName,
               placeImage: placeImage,
+              screenWidth: screenWidth,
             ),
           ),
         ],

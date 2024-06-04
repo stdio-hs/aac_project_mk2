@@ -31,6 +31,8 @@ flutter:
     - assets/animation_gps.json
     - assets/animation_load.json
     - assets/animation_stt.json
+    - assets/animation_find.json
+    - assets/animation_ai.json
 
     - assets/3d_image.png
     - assets/bookstore.png

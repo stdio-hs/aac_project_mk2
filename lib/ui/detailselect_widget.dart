@@ -9,6 +9,9 @@ class DetailSelectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -21,7 +24,7 @@ class DetailSelectWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildCategoryLabel(),
+            _buildCategoryLabel(screenWidth),
             SizedBox(height: 20),
             Expanded(child: _buildGrid()),
             SizedBox(height: 20),
@@ -41,18 +44,18 @@ class DetailSelectWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryLabel() {
+  Widget _buildCategoryLabel(double screenWidth) {
     return Row(
       children: [
         Image.asset(
           categoryImage,
-          height: 50,
+          height: screenWidth * 0.8, // Adjust image size based on screen width
         ),
         SizedBox(width: 10),
         Text(
           categoryName,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: screenWidth * 0.5, // Adjust font size based on screen width
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -70,25 +73,36 @@ class DetailSelectWidget extends StatelessWidget {
       ),
       itemCount: 9, // 임시로 9개의 빈 박스 생성
       itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.blueAccent.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: Offset(0, 3),
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            double itemWidth = constraints.maxWidth;
+            double itemHeight = constraints.maxHeight;
+            double textSize = itemWidth * 0.15; // Adjust text size based on item size
+
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.blueAccent.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              '임시 박스',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
+              child: Center(
+                child: Text(
+                  '임시 박스',
+                  style: TextStyle(
+                    fontSize: textSize, // Adjust font size based on item size
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            );
+          },
         );
       },
     );
