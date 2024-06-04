@@ -5,14 +5,16 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import tensorflow as tf
 import json
 import pandas as pd
+from sklearn.metrics import f1_score
+
 #from back_end import MODEL_FILE, LABEL_FILE, AAC_FILE
 FILE_PATH = './'
 FILE_NAME = 'new_korean_intence.json'
 
 LABEL_FILE = './label_data.txt'
 # MODEL_FILE = './model/'
-MODEL_FILE = 'C:/Users/HYUNSUNG/Desktop/git_codes/aac_project_mk2/back_end/model'
-# MODEL_FILE = 'C:/Users/yangs/aac_project_mk2/back_end/model/'
+# MODEL_FILE = 'C:/Users/HYUNSUNG/Desktop/git_codes/aac_project_mk2/back_end/model'
+MODEL_FILE = 'C:/Users/yangs/aac_project_mk2/back_end/model/'
 AAC_FILE = './json_data_230924.json'
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -149,5 +151,20 @@ class Classifier():
 
         self.text.clear()
         return return_data, result, response
+    
+    def evaluate_model(self, texts, true_labels):
+        predictions = []
+        for text in texts:
+            _, predicted_label, _ = self.classifier(text)
+            predictions.append(predicted_label)
+        
+        y_true = [self.labels[label] for label in true_labels]
+        y_pred = [self.labels[label] for label in predictions]
+        
+        # precision = precision_score(y_true, y_pred, average='weighted')
+        # recall = recall_score(y_true, y_pred, average='weighted')
+        f1 = f1_score(y_true, y_pred, average='weighted')
+        
+        return f1
 
         

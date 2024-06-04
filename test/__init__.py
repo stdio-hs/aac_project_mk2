@@ -2,3 +2,4 @@
 # from test.ClientTCPSocket import *
 # from test.ResponseChattingProtocol import *
 # from test.ResponseRecomendApplication import *
+# from test.score import *
