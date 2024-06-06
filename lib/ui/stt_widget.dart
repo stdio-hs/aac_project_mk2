@@ -27,11 +27,14 @@ class SttWidget extends StatelessWidget {
       if (controller.text.value.isEmpty) {
         return '';
       } else if (controller.analy.value) {
-        return '완료됨';
+        return '';
       } else {
-        return 'AI가 추천답변을 찾고있어요';
+        return '★ AI가 추천 응답을 찾고 있어요 ★';
       }
     }
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -65,13 +68,15 @@ class SttWidget extends StatelessWidget {
             return GestureDetector(
               onTap: controller.stopListening,
               child: CircleAvatar(
-                radius: 120, // 동그라미 사이즈를 크게 설정
-                backgroundColor: Colors.blue,
-                child: Lottie.asset(
-                  'assets/animation_stt.json',
-                  repeat: true,
-                  width: 240, // stt_animation의 크기를 더 크게 설정
-                  height: 240, // stt_animation의 크기를 더 크게 설정
+                radius: screenWidth, // 동그라미 사이즈를 화면 너비에 비례하여 설정
+                backgroundColor: Colors.transparent,
+                child: Container(
+                  width: screenWidth * 1, // stt_animation의 크기를 화면 너비에 비례하여 설정
+                  height: screenWidth * 1, // stt_animation의 크기를 화면 너비에 비례하여 설정
+                  child: Lottie.asset(
+                    'assets/animation_stt.json',
+                    repeat: true,
+                  ),
                 ),
               ),
             );
@@ -88,11 +93,12 @@ class SttWidget extends StatelessWidget {
                   GestureDetector(
                     onTap: controller.startListening,
                     child: CircleAvatar(
-                      radius: 120, // 동그라미 사이즈를 크게 설정
+                      radius: screenWidth * 0.2, // 동그라미 사이즈를 화면 너비에 비례하여 설정
                       backgroundColor: Colors.blue,
                       child: Text(
                         '눌러서 질문해주세요',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.03), // 텍스트 크기를 화면 너비에 비례하여 설정
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -101,12 +107,17 @@ class SttWidget extends StatelessWidget {
                     children: [
                       Text(
                         completed(controller),
-                        style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: screenWidth * 0.06, // 화면 너비에 비례하여 텍스트 크기 조정
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 20),
                       Text(
                         '질문 : ${controller.text.value}\n',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.035), // 텍스트 크기를 화면 너비에 비례하여 설정
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),

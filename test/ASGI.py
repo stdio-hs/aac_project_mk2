@@ -11,7 +11,7 @@ import time
 # HOST = '127.0.0.1'
 # HOST = '192.168.200.176'
 
-HOST = '165.229.140.143'
+HOST = '192.168.1.189'
 
 PORT = 5000
 
@@ -21,9 +21,9 @@ class ASGI:
         #self.__recomment_app = ResponseRecomendApp()
         #self.__send_thread = Thread(send_thread, "send Thread입니다.")
         #self.__recv_thread = Thread(recv_thread, "recv Thread입니다.")
-        return 
-    
-    # 서버 소켓을 실행하는 부분(바인드)
+        return
+
+        # 서버 소켓을 실행하는 부분(바인드)
     def __set_server_socket(self):
         server_socket = socket(AF_INET, SOCK_STREAM)
         server_socket.bind((HOST, PORT))
@@ -42,7 +42,7 @@ class ASGI:
             thread = Thread(target=self.__clientHandleThread,
                             args=(client_tcp_socket,rra))
             thread.start()
-    
+
     def __clientHandleThread(self, client_tcp_socket, rra):
         # send와 recv하는 스레드로 분기
         send_thread = Thread(target=self.__sendThread,
@@ -58,14 +58,14 @@ class ASGI:
         while True:
             time.sleep(1)
             # client_tcp_socket.sendData(data)
-            
+
             if not rra.isEmptySendQueue():
                 data, res, ans_list = rra.sendQueueDeque()
                 print("뭐하는 중이니 :    ", (data,res,ans_list))
                 client_tcp_socket.sendData(res, ans_list)
 
-                
-                            
+
+
 
     def __recvThread(self, client_tcp_socket:ClientTCPSocket, rra:ResponseRecomendApp):
         while True:
