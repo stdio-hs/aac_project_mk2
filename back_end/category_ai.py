@@ -6,15 +6,17 @@ import tensorflow as tf
 import json
 import pandas as pd
 from sklearn.metrics import f1_score
+import time
 
 #from back_end import MODEL_FILE, LABEL_FILE, AAC_FILE
 FILE_PATH = './'
 FILE_NAME = 'new_korean_intence.json'
+# FILE_NAME = 'test_data.json'
 
 LABEL_FILE = './label_data.txt'
 # MODEL_FILE = './model/'
-MODEL_FILE = 'C:/Users/HYUNSUNG/Desktop/git_codes/aac_project_mk2/back_end/model'
-#MODEL_FILE = 'C:/Users/yangs/aac_project_mk2/back_end/model/'
+# MODEL_FILE = 'C:/Users/HYUNSUNG/Desktop/git_codes/aac_project_mk2/back_end/model'
+MODEL_FILE = 'C:/Users/yangs/aac_project_mk2/back_end/model/'
 AAC_FILE = './json_data_230924.json'
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -105,7 +107,7 @@ class Classifier():
     # 현재 제공하는 AAC에 포함되어있는지 확인
     def __check_category(self, txt):
         #print(self.aac_category)
-        print('here')
+        # print('here')
         for arg in self.aac_category:
             if arg['name'] == txt:
                 return {'key' : arg['id']}
@@ -140,13 +142,13 @@ class Classifier():
         for a in self.aac_category:
             if a['id']==return_data['key']:
                 ans = a['node'][0:5]
-                print(ans) # [8141, 8142]
+                # print(ans) # [8141, 8142]
 
         for num in ans:
             for n in self.aac_category:
                 if num == n['id']:
                     response.append(n['name'])
-                    print(n['name'])
+                    # print(n['name'])
                     print(response)
 
         self.text.clear()
@@ -155,8 +157,10 @@ class Classifier():
     def evaluate_model(self, texts, true_labels):
         predictions = []
         for text in texts:
+            print("입력되는 질문 : ",text)
             _, predicted_label, _ = self.classifier(text)
             predictions.append(predicted_label)
+            
         
         y_true = [self.labels[label] for label in true_labels]
         y_pred = [self.labels[label] for label in predictions]

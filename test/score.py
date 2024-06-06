@@ -8,8 +8,6 @@ import numpy as np
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 
-
-
 import sys
 import os
 
@@ -20,8 +18,8 @@ sys.path.append(parent_dir)
 
 from back_end.category_ai import Classifier
 
-FILE_PATH = './'
 # FILE_NAME = 'new_korean_intence.json'
+FILE_PATH = './'
 FILE_NAME = 'test_data.json'
 MODEL_FILE = 'C:/Users/yangs/aac_project_mk2/back_end/model/'
 
@@ -38,11 +36,12 @@ for intent in json_data['intence']:
         test_sentences.append(pattern)
         test_labels.append(intent['tag'])
 
-# model = tf.keras.models.load_model(MODEL_FILE)
-
 classifier = Classifier()
 # test_texts = ['테스트 문장1', '테스트 문장2', ...]
 # test_labels = ['label1', 'label2', ...]
+
 f1 = classifier.evaluate_model(test_sentences, test_labels)
+
 print(f'F1 Score: {f1}')
+
 
